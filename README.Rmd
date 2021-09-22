@@ -1,0 +1,29 @@
+---
+title: "README for BestModelAICBIC"
+output: github_document
+---
+
+1. Find best model among all independent variables based on AIC or BIC values.
+2. The underlying model is a simple multiple linear regression.
+3. Function to finding AIC and BIC values to identify best model for GLM models is underconstruction.  
+
+```{r cars}
+BestModelAICBIC::bm_aic_bic(data = mtcars, depvar = "mpg", crit = "BIC")
+```
+  
+#Prepare dataset for different scenarios
+
+```{r warning=FALSE}
+#Curtailed dataset with reduced data and interaction terms
+#new_df <- mtcars[c("mpg","disp","drat","vs","am")] 
+new_df <- dplyr::mutate(mtcars[c("mpg","disp","drat","vs","am")], interaction.term = disp*drat)
+
+#Run model for BIC
+BestModelAICBIC::bm_aic_bic(data = new_df, depvar = "mpg", crit = "AIC")
+```
+
+```{r warning=FALSE}
+#Run model for AIC
+BestModelAICBIC::bm_aic_bic(data = new_df, depvar = "mpg", crit = "BIC")
+```
+Notice that according to the AIC the best model includes: "disp", "drat" and "interaction.term". Whereas the BIC best model only contains: "drat" and "interaction.term". 
