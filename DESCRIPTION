@@ -1,0 +1,16 @@
+Package: BestModelAICBIC
+Title: Calculates AIC or BIC values based on all possible combinations of the independent variables.
+Version: 1.0
+Authors@R: 
+    person(given = "Sankalp",
+           family = "Sharma",
+           role = c("aut", "cre"),
+           email = "ssharm31@kent.edu",
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: This package finds the best model according to their AIC or BIC. For example, consider a dataset with 5 independent variables. There are a total of 31 possible model combinations possible and each will give a separate AIC. Instead of manually creating candidate models and then comparing their AIC/BIC, this package automatically computes the best model (the one with the lowest AIC and BIC score) according to all AIC/BIC values for all 31 combinations and returns the AIC/BIC of the selected model, the coefficients and the adjusted R2.  
+License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
+    license
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
