@@ -15,7 +15,6 @@ BestModelAICBIC::bm_aic_bic(data = mtcars, depvar = "mpg", crit = "BIC")
 
 ```{r warning=FALSE}
 #Curtailed dataset with reduced data and interaction terms
-#new_df <- mtcars[c("mpg","disp","drat","vs","am")] 
 new_df <- dplyr::mutate(mtcars[c("mpg","disp","drat","vs","am")], interaction.term = disp*drat)
 
 #Run model for BIC
