@@ -7,7 +7,7 @@
 bm_aic_bic_glm(data, depvar, crit = "AIC", familytype = "gaussian")
 }
 \arguments{
-\item{data, depvar, crit, family}{: data frame containing dependent and independent variables, dependent variable, choose AIC or BIC score, family (for bm_aic_bic_glm only; default: gaussian).}
+\item{data, depvar, crit, family}{data frame, dependent variable, choose AIC or BIC score, family (for bm_aic_bic_glm only; default: gaussian).}
 }
 \value{
 A list file containing, best model, its AIC/BIC and null deviance
