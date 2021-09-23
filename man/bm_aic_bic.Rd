@@ -7,7 +7,7 @@
 bm_aic_bic(data, depvar, crit = "AIC")
 }
 \arguments{
-\item{data, depvar, crit:}{data frame containing dependent and independent variables, dependent variable, choose AIC or BIC score.}
+\item{data, depvar, crit}{: data frame containing dependent and independent variables, dependent variable, choose AIC or BIC score.}
 }
 \value{
 A list file containing, best model, its AIC/BIC and adjusted R2

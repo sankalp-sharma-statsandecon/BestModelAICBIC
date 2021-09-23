@@ -1,22 +1,23 @@
 #' Find best model among all independent variables based on AIC or BIC values.
 #' 
-#' @param data,depvar,crit : data frame containing dependent and independent variables, dependent variable, choose AIC or BIC score.
-#' @return A list file containing, best model, its AIC/BIC and adjusted R2
+#' @param data,depvar,crit,family : data frame containing dependent and independent variables, dependent variable, choose AIC or BIC score, family (for bm_aic_bic_glm only; default: gaussian).
+#' @return A list file containing, best model, its AIC/BIC and null deviance
 #' @export
-bm_aic_bic <- function(data, depvar, crit = "AIC"){
+bm_aic_bic_glm <- function(data, depvar, crit = "AIC", familytype = "gaussian"){
   
   xfunc <- function(k, j_col){
     xnam <- combn(colnames(data)[colnames(data)!=depvar], m = j_col)[,k]
     fmla <- as.formula(paste(depvar," ~ ", paste(xnam, collapse= "+")))
     
     if(crit == "AIC"){
-      return(c("AIC" = AIC(lm(fmla,data=data)),
-               lm(fmla,data=data)$coefficients,
-               "Adj_R_squared" = summary(lm(fmla,data=data))$adj.r.squared))
+      return(c("AIC" = AIC(glm(fmla, data=data, family = familytype)), 
+               glm(fmla, data=data, family = familytype)$coefficients,
+               "Null_deviance" = glm(fmla, data=data, family = familytype)$null.deviance))
+      
     } else {
-      return(c("BIC" = BIC(lm(fmla,data=data)),
-               lm(fmla,data=data)$coefficients,
-               "Adj_R_squared" = summary(lm(fmla,data=data))$adj.r.squared))
+      return(c("BIC" = BIC(glm(fmla, data=data, family = familytype)),
+               glm(fmla, data=data, family = familytype)$coefficients,
+               "Null_deviance" = glm(fmla, data=data, family = familytype)$null.deviance))
     }
   }
   
@@ -38,7 +39,7 @@ bm_aic_bic <- function(data, depvar, crit = "AIC"){
   res_df <- cbind("Score" = res_vec, "i" = i_count, "j" = j_count)
   ans <- t(data.frame("Values"=
                         result[[res_df[which.min(res_df[,1]),][-1][[1]]]][[res_df[which.min(res_df[,1]),][-1][[2]]]]))
-  list_ans <- list(crit = ans[,1], "Select_model" = ans[,-c(1,length(ans))], "Adj_R2" = ans[,length(ans)])
+  list_ans <- list(crit = ans[,1], "Select_model" = ans[,-c(1,length(ans))], "Null_deviance" = ans[,length(ans)])
   names(list_ans)[1] <- crit
   return(list_ans)
 }
